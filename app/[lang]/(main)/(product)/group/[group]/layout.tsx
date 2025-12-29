@@ -1,8 +1,7 @@
 import CategoryListClient from "@/components/category-list-client";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { GroupQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { groupQuery } from "@/sanity/lib/queries";
+import { GroupQueryResult } from "@/lib/cms/types";
+import { fetchGroup } from "@/lib/cms/fetch";
 import { notFound } from "next/navigation";
 
 interface ProductGroupLayoutProps {
@@ -17,12 +16,10 @@ export default async function ProductGroupLayout({ params, children }: ProductGr
     // console.log('ProductGroupLayout, language:', lang); // language: en
     // console.log('ProductGroupLayout, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const groupQueryResult = await sanityFetch<GroupQueryResult>({
-        query: groupQuery,
-        params: {
-            ...queryParams,
-            slug: group,
-        },
+    const groupQueryResult = await fetchGroup({
+        slug: group,
+        locale: lang as any,
+        params: queryParams,
     });
 
     // console.log('ProductGroupLayout, groupQueryResult:', groupQueryResult);

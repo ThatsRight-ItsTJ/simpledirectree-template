@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { GroupListWithCategoryQueryResult } from '@/sanity.types';
+import { GroupListWithCategoryQueryResult } from '@/lib/cms/types';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -28,7 +28,7 @@ export default function GroupListClient({ lang, itemList }: GroupListClientProps
         {itemList.map((item) => (
           <div key={item._id} className='md:w-full'>
             {
-              item.name && item.categories.length > 0 &&
+              item.name && item.categories && item.categories.length > 0 &&
               (
                 <Link
                   href={item.slug === 'new' || item.slug === 'featured' ? `/${lang}/group/${item.slug}`

@@ -1,0 +1,26 @@
+name = "cms-api"
+main = "src/index.ts"
+compatibility_date = "2023-12-21"
+
+[env.production]
+vars = { ENVIRONMENT = "production", HF_TOKEN = "your-huggingface-token", ADMIN_SECRET = "your-admin-secret-key" }
+
+[env.staging]
+vars = { ENVIRONMENT = "staging", HF_TOKEN = "your-huggingface-token", ADMIN_SECRET = "your-admin-secret-key" }
+
+# KV namespaces
+[[kv_namespaces]]
+binding = "KV_CACHE"
+id = "ae0de3429dbb4a3b9169579c6efc590c"
+
+# R2 buckets
+[[r2_buckets]]
+binding = "R2_STORAGE"
+bucket_name = "cms-artifacts"
+preview_bucket_name = "cms-artifacts-preview"
+
+# D1 databases
+[[d1_databases]]
+binding = "DB"
+database_name = "directory-heat-tracker"
+database_id = "08d2274a-7ef4-4b21-949d-3d57dff93c6f"

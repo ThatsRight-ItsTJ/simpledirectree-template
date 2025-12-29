@@ -4,9 +4,8 @@ import GroupListClient from "@/components/group-list-client";
 import { AllProductConfigs } from "@/config/product";
 import { COMMON_PARAMS } from "@/lib/constants";
 import { getCurrentUser } from "@/lib/session";
-import { GroupListWithCategoryQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { groupListWithCategoryQuery } from "@/sanity/lib/queries";
+import { GroupListWithCategoryQueryResult } from "@/lib/cms/types";
+import { fetchGroupListWithCategories } from "@/lib/cms/fetch";
 
 interface ProductListLayoutProps {
     params: { lang: string };
@@ -23,8 +22,8 @@ export default async function ProductListLayout({ params, children }: ProductLis
     const user = await getCurrentUser();
     const productConfig = AllProductConfigs[lang];
 
-    const groupListQueryResult = await sanityFetch<GroupListWithCategoryQueryResult>({
-        query: groupListWithCategoryQuery,
+    const groupListQueryResult = await fetchGroupListWithCategories({
+        locale: lang as any,
         params: queryParams,
     });
     // console.log('ProductListLayout, groupListQueryResult:', groupListQueryResult);

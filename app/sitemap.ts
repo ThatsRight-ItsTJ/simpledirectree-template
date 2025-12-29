@@ -1,9 +1,18 @@
 import { env } from "@/env.mjs";
 import { type MetadataRoute } from 'next';
 import { i18n } from "../i18n-config";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { AppListQueryForSitemapResult, AppTypeListQueryForSitemapResult, CategoryListQueryForSitemapResult, ProductListQueryForSitemapResult } from "@/sanity.types";
-import { appListQueryForSitemap, appTypeListQueryForSitemap, categoryListQueryForSitemap, productListQueryForSitemap } from "@/sanity/lib/queries";
+import {
+  fetchAppListForSitemap,
+  fetchAppTypeListForSitemap,
+  fetchCategoryListForSitemap,
+  fetchProductListForSitemap
+} from "@/lib/cms/fetch";
+import type {
+  AppListQueryForSitemapResult,
+  AppTypeListQueryForSitemapResult,
+  CategoryListQueryForSitemapResult,
+  ProductListQueryForSitemapResult
+} from "@/lib/cms/types";
 
 const site_url = env.NEXT_PUBLIC_APP_URL;
 
@@ -68,18 +77,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const [appListQueryResult, appTypeListQueryResult,
         categoryListQueryResult, productListQueryResult] = await Promise.all([
-            sanityFetch<AppListQueryForSitemapResult>({
-                query: appListQueryForSitemap,
-            }),
-            sanityFetch<AppTypeListQueryForSitemapResult>({
-                query: appTypeListQueryForSitemap,
-            }),
-            sanityFetch<CategoryListQueryForSitemapResult>({
-                query: categoryListQueryForSitemap,
-            }),
-            sanityFetch<ProductListQueryForSitemapResult>({
-                query: productListQueryForSitemap,
-            }),
+            fetchAppListForSitemap({ locale: 'en' }),
+            fetchAppTypeListForSitemap({ locale: 'en' }),
+            fetchCategoryListForSitemap({ locale: 'en' }),
+            fetchProductListForSitemap({ locale: 'en' }),
         ]);
 
     console.log('sitemap, appListQueryResult size:', appListQueryResult.length);
@@ -100,7 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     priority: 1,
                 });
             } else {
-                console.warn(`sitemap, name invalid, id:${app._id}`);
+                console.warn(`sitemap, name invalid, id:${app.id}`);
             }
         })
     })

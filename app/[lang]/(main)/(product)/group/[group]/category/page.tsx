@@ -1,7 +1,6 @@
 import { COMMON_PARAMS } from "@/lib/constants";
-import { GroupListWithCategoryQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { groupListWithCategoryQuery } from "@/sanity/lib/queries";
+import { GroupListWithCategoryQueryResult } from "@/lib/cms/types";
+import { fetchGroupListWithCategories } from "@/lib/cms/fetch";
 import { redirect } from "next/navigation";
 
 // NOTICE(javayhu) can be deleted
@@ -12,8 +11,8 @@ export default async function CategoryIndexPage({ params }: { params: { lang: st
     // console.log('CategoryIndexPage, language:', lang); // language: en
     // console.log('CategoryIndexPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const groupListWithCategoryQueryResult = await sanityFetch<GroupListWithCategoryQueryResult>({
-        query: groupListWithCategoryQuery,
+    const groupListWithCategoryQueryResult = await fetchGroupListWithCategories({
+        locale: lang as any,
         params: queryParams,
     });
     

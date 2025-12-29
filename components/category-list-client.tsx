@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { GroupQueryResult } from '@/sanity.types';
+import { GroupQueryResult } from '@/lib/cms/types';
 import Link from 'next/link';
 import { notFound, usePathname } from 'next/navigation';
 
@@ -30,11 +30,11 @@ export default function CategoryListClient({ lang, group }: CategoryListClientPr
   return (
     <>
       {
-        group.categories.length > 1 &&
+        group.categories && group.categories.length > 1 &&
         <div className="flex gap-4 items-center border-t pt-4 md:border-transparent md:pt-0">
           <div className="flex flex-wrap items-center gap-4">
             {
-              group.categories.length > 0 &&
+              group.categories && group.categories.length > 0 &&
               group.categories.map((item) => (
                 <Link key={item._id}
                   href={group.slug === 'new' || group.slug === 'featured'

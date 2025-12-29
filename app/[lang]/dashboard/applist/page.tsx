@@ -9,9 +9,8 @@ import { AllAppListConfigs } from "@/config/app-list";
 import { COMMON_PARAMS } from "@/lib/constants";
 import { getCurrentUser } from "@/lib/session";
 import { cn } from "@/lib/utils";
-import { ApplicationListByUserQueryResult, AppTypeListQueryResult, UserQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { applicationListByUserQuery, appTypeListQuery, userQuery } from "@/sanity/lib/queries";
+import { ApplicationListByUserQueryResult, AppTypeListQueryResult, UserQueryResult } from "@/lib/cms/types";
+import { fetchUser, fetchAppTypeList, fetchApplicationsByUser } from "@/lib/cms/fetch";
 import Link from "next/link";
 
 export const metadata = {
@@ -35,24 +34,23 @@ export default async function AppListPage({ params }: { params: { lang: string }
   console.log('AppListPage, userid:', user.id);
 
   const [appTypeListQueryResult, applicationListByUserQueryResult, userQueryResult] = await Promise.all([
-    sanityFetch<AppTypeListQueryResult>({
-      query: appTypeListQuery,
+    fetchAppTypeList({
+      locale: lang as any,
       params: queryParams,
     }),
-    sanityFetch<ApplicationListByUserQueryResult>({
-      query: applicationListByUserQuery,
+    fetchApplicationsByUser({
+      userId: user.id,
+      locale: lang as any,
       params: {
         ...queryParams,
         userid: user.id,
       },
-      useCache: false,
+      options: { useCache: false },
     }),
-    sanityFetch<UserQueryResult>({
-      query: userQuery,
-      params: {
-        userId: user.id,
-      },
-      useCache: false,
+    fetchUser({
+      userId: user.id,
+      locale: lang as any,
+      options: { useCache: false },
     }),
   ]);
   if (!userQueryResult) {

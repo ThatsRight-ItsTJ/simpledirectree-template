@@ -6,9 +6,8 @@ import { SubmitApplicationForm } from "@/components/forms/submit-application-for
 import { AllSubmitAppConfigs } from "@/config/submit-app";
 import { COMMON_PARAMS } from "@/lib/constants";
 import { getCurrentUser } from "@/lib/session";
-import { AppTypeListQueryResult, UserQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { appTypeListQuery, userQuery } from "@/sanity/lib/queries";
+import { AppTypeListQueryResult, UserQueryResult } from "@/lib/cms/types";
+import { fetchUser, fetchAppTypeList } from "@/lib/cms/fetch";
 
 export const metadata = {
   title: "Submit Application",
@@ -32,16 +31,14 @@ export default async function SubmitApplicationPage({ params }: { params: { lang
   console.log('SubmitApplicationPage, userid:', user.id);
 
   const [appTypeListQueryResult, userQueryResult] = await Promise.all([
-    sanityFetch<AppTypeListQueryResult>({
-      query: appTypeListQuery,
+    fetchAppTypeList({
+      locale: lang as any,
       params: queryParams,
     }),
-    sanityFetch<UserQueryResult>({
-      query: userQuery,
-      params: {
-        userId: user.id,
-      },
-      useCache: false,
+    fetchUser({
+      userId: user.id,
+      locale: lang as any,
+      options: { useCache: false },
     }),
   ]);
   if (!userQueryResult) {

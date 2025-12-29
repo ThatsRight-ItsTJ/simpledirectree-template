@@ -1,9 +1,8 @@
 import ProductGridCient from "@/components/product-grid-client";
 import { AllSiteConfigs } from "@/config/site";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { ProductListOfRecentQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { productListOfRecentQuery } from "@/sanity/lib/queries";
+import { ProductListOfRecentQueryResult } from "@/lib/cms/types";
+import { fetchProductListOfRecent } from "@/lib/cms/fetch";
 import { Metadata } from "next";
 
 interface NewPageProps {
@@ -36,8 +35,8 @@ export default async function NewPage({ params }: NewPageProps) {
     // console.log('NewPage, language:', lang); // language: en
     // console.log('NewPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const productListQueryResult = await sanityFetch<ProductListOfRecentQueryResult>({
-        query: productListOfRecentQuery,
+    const productListQueryResult = await fetchProductListOfRecent({
+        locale: lang as any,
         params: {
             ...queryParams,
             limit: 24

@@ -1,13 +1,12 @@
 import { notFound } from "next/navigation";
 
 import AppSingleClient from "@/components/app-single-client";
-import { AppQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { appQuery } from "@/sanity/lib/queries";
+import { ApplicationQueryResult } from "@/lib/cms/types";
+import { fetchApplication } from "@/lib/cms/fetch";
 import { COMMON_PARAMS } from "@/lib/constants";
 import { Metadata } from "next";
 import { AllSiteConfigs } from "@/config/site";
-import { urlForImageWithSize } from "@/sanity/lib/utils";
+import { getCMSImageUrl } from "@/lib/cms/fetch";
 
 interface AppPageProps {
     params: {
@@ -28,12 +27,10 @@ export async function generateMetadata({
     const queryParams = { ...COMMON_PARAMS, lang };
     // console.log('generateMetadata, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const appQueryResult = await sanityFetch<AppQueryResult>({
-        query: appQuery,
-        params: {
-            ...queryParams,
-            slug: appSlug,
-        },
+    const appQueryResult = await fetchApplication({
+        slug: appSlug,
+        locale: lang as any,
+        params: queryParams,
     });
     console.log('AppPage, appQueryResult:', appQueryResult);
     if (!appQueryResult) {
@@ -43,7 +40,7 @@ export async function generateMetadata({
     const siteConfig = AllSiteConfigs[lang];
     const currentUrl = `${siteConfig.url}/${lang}/app/${appQueryResult.name}`;
     const canonicalUrl = `${siteConfig.url}/en/app/${appQueryResult.name}`;
-    const ogImage = urlForImageWithSize(appQueryResult.cover, 960, 540);
+    const ogImage = getCMSImageUrl(appQueryResult.coverImage, 960, 540);
 
     return {
         title: appQueryResult.name,
@@ -55,7 +52,7 @@ export async function generateMetadata({
             type: "website",
             url: currentUrl,
             title: appQueryResult.name,
-            images: [ogImage],
+            images: ogImage ? [ogImage] : [],
             description: appQueryResult.description,
           },
           twitter: {
@@ -63,7 +60,7 @@ export async function generateMetadata({
             card: "summary_large_image",
             title: appQueryResult.name,
             description: appQueryResult.description,
-            images: [ogImage],
+            images: ogImage ? [ogImage] : [],
           },
     }
 }
@@ -79,12 +76,10 @@ export default async function AppPage({ params }: AppPageProps) {
     const queryParams = { ...COMMON_PARAMS, lang };
     // console.log('AppPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const appQueryResult = await sanityFetch<AppQueryResult>({
-        query: appQuery,
-        params: {
-            ...queryParams,
-            slug: appSlug,
-        },
+    const appQueryResult = await fetchApplication({
+        slug: appSlug,
+        locale: lang as any,
+        params: queryParams,
     });
     console.log('AppPage, appQueryResult:', appQueryResult);
     if (!appQueryResult) {

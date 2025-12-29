@@ -5,9 +5,8 @@ import { DashboardShell } from "@/components/dashboard/shell";
 import { ShareResourceForm } from "@/components/forms/share-resource-form";
 import { AllShareResourceConfigs } from "@/config/share-resource";
 import { getCurrentUser } from "@/lib/session";
-import { UserQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { userQuery } from "@/sanity/lib/queries";
+import { UserQueryResult } from "@/lib/cms/types";
+import { fetchUser } from "@/lib/cms/fetch";
 
 export const metadata = {
   title: "Share Resource",
@@ -25,12 +24,10 @@ export default async function ShareResourcePage({ params }: { params: { lang: st
   }
   console.log('ShareResourcePage, userid:', user.id, 'username:', user.name);
 
-  const userQueryResult = await sanityFetch<UserQueryResult>({
-    query: userQuery,
-    params: {
-      userId: user.id,
-    },
-    useCache: false,
+  const userQueryResult = await fetchUser({
+    userId: user.id,
+    locale: lang as any,
+    options: { useCache: false },
   });
   if (!userQueryResult) {
     console.log("ShareResourcePage, userQueryResult not found");

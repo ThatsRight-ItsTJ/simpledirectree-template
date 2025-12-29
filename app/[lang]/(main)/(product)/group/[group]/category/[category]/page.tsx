@@ -1,9 +1,8 @@
 import ProductGridCient from "@/components/product-grid-client";
 import { AllSiteConfigs } from "@/config/site";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { CategoryQueryResult, ProductListByCategoryQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { categoryQuery, productListByCategoryQuery } from "@/sanity/lib/queries";
+import { CategoryQueryResult, ProductData } from "@/lib/cms/types";
+import { fetchCategory, fetchProductsByCategory } from "@/lib/cms/fetch";
 import { Metadata } from "next";
 
 interface CategoryPageProps {
@@ -23,12 +22,10 @@ export async function generateMetadata({
     const queryParams = { ...COMMON_PARAMS, lang };
     // console.log('generateMetadata, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const categoryQueryResult = await sanityFetch<CategoryQueryResult>({
-        query: categoryQuery,
-        params: {
-            ...queryParams,
-            slug: category,
-        },
+    const categoryQueryResult = await fetchCategory({
+        slug: category,
+        locale: lang as any,
+        params: queryParams,
     });
     console.log('generateMetadata, categoryQueryResult:', categoryQueryResult);
     if (!categoryQueryResult) {
@@ -56,12 +53,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     // console.log('CategoryPage, language:', lang); // language: en
     // console.log('CategoryPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const productListQueryResult = await sanityFetch<ProductListByCategoryQueryResult>({
-        query: productListByCategoryQuery,
-        params: {
-            ...queryParams,
-            categorySlug: category,
-        },
+    const productListQueryResult = await fetchProductsByCategory({
+        categorySlug: category,
+        locale: lang as any,
+        params: queryParams,
     });
 
     return (

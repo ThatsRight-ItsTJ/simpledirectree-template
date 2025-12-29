@@ -5,9 +5,8 @@ import { DashboardShell } from "@/components/dashboard/shell";
 import { AccountInfoForm } from "@/components/forms/account-info-form";
 import { AllSettingsConfigs } from "@/config/settings";
 import { getCurrentUser } from "@/lib/session";
-import { UserQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { userQuery } from "@/sanity/lib/queries";
+import { UserQueryResult } from "@/lib/cms/types";
+import { fetchUser } from "@/lib/cms/fetch";
 
 export const metadata = {
   title: "Settings",
@@ -27,12 +26,10 @@ export default async function SettingsPage({ params }: { params: { lang: string 
   }
 
   console.log('SettingsPage, userid:', user.id, 'username:', user.name);
-  const userQueryResult = await sanityFetch<UserQueryResult>({
-    query: userQuery,
-    params: {
-      userId: user.id,
-    },
-    useCache: false,
+  const userQueryResult = await fetchUser({
+    userId: user.id,
+    locale: lang as any,
+    options: { useCache: false },
   });
   if (!userQueryResult) {
     console.log("SettingsPage, userQueryResult not found");

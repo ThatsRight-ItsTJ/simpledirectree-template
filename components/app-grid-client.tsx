@@ -1,19 +1,17 @@
 'use client';
 
 import { formatDate } from '@/lib/utils';
-import { ApplicationListByCategoryQueryResult, ApplicationListOfFeaturedQueryResult, ApplicationListOfRecentQueryResult } from '@/sanity.types';
-import { urlForImageWithSize } from '@/sanity/lib/utils';
+import { ApplicationData } from '@/lib/cms/types';
+import { getCMSImageUrl } from '@/lib/cms/fetch';
 import Image from "next/image";
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Badge } from './ui/badge';
 import { ArrowUpRightFromCircleIcon, ArrowUpRightFromSquareIcon, ArrowUpRightIcon, ExternalLinkIcon } from 'lucide-react';
 
-type ApplicationListQueryResult = ApplicationListByCategoryQueryResult | ApplicationListOfFeaturedQueryResult | ApplicationListOfRecentQueryResult;;
-
 interface AppGridCientProps {
   lang: string;
-  itemList: ApplicationListQueryResult;
+  itemList: ApplicationData[];
   category: string;
 }
 
@@ -27,14 +25,14 @@ export default function AppGridCient({ lang, itemList, category }: AppGridCientP
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {itemList.map((item) => {
             console.info('AppGridCient, create item for ', item);
-            const logoImageUrl = urlForImageWithSize(item.image, 96, 96);
+            const logoImageUrl = getCMSImageUrl(item.logo, 96, 96);
             // console.error('AppGridCient, logo image url: ', logoImageUrl);
             if (!logoImageUrl) {
               console.warn('AppGridCient, no logo image for ', item.name);
             }
             return logoImageUrl && (
               // href={`${item.link}`}
-              <Link key={item._id} href={`/${lang}/app/${item.name}`}>
+              <Link key={item._id || item.id} href={`/${lang}/app/${item.name}`}>
                 {/* transition-all hover:bg-accent md:scale-100 md:hover:scale-105 */}
                 <div
                   className="group cursor-pointer overflow-hidden 
@@ -72,11 +70,11 @@ export default function AppGridCient({ lang, itemList, category }: AppGridCientP
                     {/* app types */}
                     {item.types && (
                       <div className="flex flex-wrap gap-2 items-center">
-                        {item.types.map((tag) => (
-                          <Link key={tag._id}
+                        {item.types.map((tag: any) => (
+                          <Link key={tag._id || tag.id}
                             href={`/${lang}/apptype/${tag.slug}`}
                           >
-                            <Badge key={tag._id} variant="outline" className="text-xs py-1 px-3 
+                            <Badge key={tag._id || tag.id} variant="outline" className="text-xs py-1 px-3 
                             text-primary dark:text-foreground/80
                             hover:border-transparent dark:hover:border-transparent
                             hover:bg-primary hover:text-primary-foreground dark:hover:text-primary-foreground
@@ -127,7 +125,7 @@ export default function AppGridCient({ lang, itemList, category }: AppGridCientP
                             }
                           </div>
                           <span className='text-sm text-muted-foreground'>
-                            {formatDate(item._createdAt)}
+                            {formatDate(item._createdAt || item.createdAt || '')}
                           </span>
                         </div>
                       )

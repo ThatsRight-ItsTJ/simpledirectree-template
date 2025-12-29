@@ -1,9 +1,8 @@
 import ProductGridCient from "@/components/product-grid-client";
 import { AllSiteConfigs } from "@/config/site";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { ProductListOfFeaturedQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { productListOfFeaturedQuery } from "@/sanity/lib/queries";
+import { ProductListOfFeaturedQueryResult } from "@/lib/cms/types";
+import { fetchProductListOfFeatured } from "@/lib/cms/fetch";
 import { Metadata } from "next";
 
 interface FeaturedPageProps {
@@ -36,8 +35,8 @@ export default async function FeaturedPage({ params }: FeaturedPageProps) {
     // console.log('FeaturedPage, language:', lang); // language: en
     // console.log('FeaturedPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const productListQueryResult = await sanityFetch<ProductListOfFeaturedQueryResult>({
-        query: productListOfFeaturedQuery,
+    const productListQueryResult = await fetchProductListOfFeatured({
+        locale: lang as any,
         params: {
             ...queryParams,
             limit: 48

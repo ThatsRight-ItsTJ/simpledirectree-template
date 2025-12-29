@@ -1,10 +1,8 @@
 import ApplicationGridCient from "@/components/app-grid-client";
 import { AllSiteConfigs } from "@/config/site";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { ApplicationListByCategoryQueryResult, ApplicationListOfFeaturedQueryResult, ApplicationListOfRecentQueryResult, AppTypeQueryResult } from "@/sanity.types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { applicationListByCategoryQuery, applicationListOfFeaturedQuery, applicationListOfRecentQuery, appTypeQuery } from "@/sanity/lib/queries";
-import { urlForImageWithSize } from "@/sanity/lib/utils";
+import { AppTypeQueryResult, ApplicationData } from "@/lib/cms/types";
+import { fetchAppType, fetchApplicationsByType } from "@/lib/cms/fetch";
 import { Metadata } from "next";
 
 interface AppTypePageProps {
@@ -23,12 +21,10 @@ export async function generateMetadata({
     const queryParams = { ...COMMON_PARAMS, lang };
     // console.log('generateMetadata, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const appTypeQueryResult = await sanityFetch<AppTypeQueryResult>({
-        query: appTypeQuery,
-        params: {
-            ...queryParams,
-            slug: type,
-        },
+    const appTypeQueryResult = await fetchAppType({
+        slug: type,
+        locale: lang as any,
+        params: queryParams,
     });
     console.log('generateMetadata, appTypeQueryResult:', appTypeQueryResult);
     if (!appTypeQueryResult) {
@@ -59,29 +55,25 @@ export default async function AppListPage({ params }: AppTypePageProps) {
     const category = type;
     console.log('AppListPage, category:', category);
 
-    let applicationListQueryResult: ApplicationListByCategoryQueryResult | ApplicationListOfFeaturedQueryResult | ApplicationListOfRecentQueryResult;
+    let applicationListQueryResult: ApplicationData[];
     if (category === 'featured') {
-        applicationListQueryResult = await sanityFetch<ApplicationListOfFeaturedQueryResult>({
-            query: applicationListOfFeaturedQuery,
-            params: {
-                ...queryParams,
-            }
+        // For featured, we might want to fetch from a different endpoint
+        applicationListQueryResult = await fetchApplicationsByType({
+            typeSlug: 'featured',
+            locale: lang as any,
+            params: queryParams,
         });
     } else if (category === 'new') { // TODO(javayhu) may not be limited
-        applicationListQueryResult = await sanityFetch<ApplicationListOfRecentQueryResult>({
-            query: applicationListOfRecentQuery,
-            params: {
-                ...queryParams,
-                limit: 24,
-            }
+        applicationListQueryResult = await fetchApplicationsByType({
+            typeSlug: 'new',
+            locale: lang as any,
+            params: { ...queryParams, limit: 24 },
         });
     } else {
-        applicationListQueryResult = await sanityFetch<ApplicationListByCategoryQueryResult>({
-            query: applicationListByCategoryQuery,
-            params: {
-                ...queryParams,
-                categorySlug: category 
-            },
+        applicationListQueryResult = await fetchApplicationsByType({
+            typeSlug: category,
+            locale: lang as any,
+            params: queryParams,
         });
     }
 

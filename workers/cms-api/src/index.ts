@@ -9,6 +9,7 @@ import {
   ContentType,
   HeatTrackingOptions,
   CONFIG,
+  DirectoryPage,
 } from './types';
 import { ArtifactBuilder } from './builder';
 import { AdminAPI } from './admin';
@@ -156,6 +157,211 @@ async function handleAdminAPI(request: Request, env: Env, path: string): Promise
 }
 
 /**
+ * Handle directory page requests with flat structure
+ */
+async function handleDirectoryPageRequest(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+  startTime: number,
+  locale: Locale,
+  slug: string
+): Promise<Response> {
+  try {
+    console.log(`[Worker] Handling directory page request for ${locale}/${slug}`);
+    
+    // Create request context for directory pages
+    const requestContext: RequestContext = {
+      locale,
+      contentType: 'directory',
+      slug
+    };
+    
+    // Update heat tracking
+    await updateHeat(env.DB, requestContext);
+    
+    // Try to get from cache first
+    const cacheResponse = await getDirectoryPageWithCacheStrategy(env, requestContext);
+    
+    // Log analytics
+    const analyticsEvent: AnalyticsEvent = {
+      type: cacheResponse.cacheHit ? 'cache_hit' : 'cache_miss',
+      timestamp: new Date().toISOString(),
+      locale,
+      contentType: 'directory',
+      slug,
+      source: cacheResponse.source,
+      duration: Date.now() - startTime,
+      userAgent: request.headers.get('user-agent'),
+      ip: request.headers.get('x-forwarded-for'),
+    };
+    
+    await logAnalytics(env.DB, analyticsEvent);
+    
+    // Return response
+    return createDirectoryPageResponse(cacheResponse, requestContext);
+    
+  } catch (error) {
+    console.error(`[Worker] Error handling directory page request for ${locale}/${slug}:`, error);
+    
+    const analyticsEvent: AnalyticsEvent = {
+      type: 'error',
+      timestamp: new Date().toISOString(),
+      locale,
+      contentType: 'directory',
+      slug,
+      source: 'unknown',
+      duration: Date.now() - startTime,
+      userAgent: request.headers.get('user-agent'),
+      ip: request.headers.get('x-forwarded-for'),
+      error: error instanceof Error ? error.message : 'Unknown error',
+    };
+    
+    await logAnalytics(env.DB, analyticsEvent);
+    
+    return new Response(JSON.stringify({
+      error: 'Internal server error',
+      timestamp: new Date().toISOString(),
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
+/**
+ * Cache strategy for directory pages
+ */
+async function getDirectoryPageWithCacheStrategy(
+  env: Env,
+  context: RequestContext
+): Promise<CacheResponse> {
+  const startTime = Date.now();
+  
+  // Tier 1: KV Cache (1-5ms)
+  try {
+    const kvData = await env.KV_CACHE.get(`directory-${context.slug}`, { type: 'json' });
+    if (kvData) {
+      console.log(`[Cache] KV hit for directory ${context.locale}/${context.slug}`);
+      return {
+        source: 'kv',
+        data: kvData as DirectoryPage,
+        cacheHit: true,
+        responseTime: Date.now() - startTime,
+      };
+    }
+  } catch (error) {
+    console.warn(`[Cache] KV access error for directory: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+  
+  // Tier 2: R2 Storage (10-50ms)
+  try {
+    const r2Key = `directory/${context.locale}/${context.slug}`;
+    const r2Object = await env.R2_STORAGE.get(r2Key);
+    
+    if (r2Object) {
+      const compressedData = await r2Object.arrayBuffer();
+      const decompressed = pako.ungzip(new Uint8Array(compressedData), { to: 'string' });
+      const data: DirectoryPage = JSON.parse(decompressed);
+      
+      console.log(`[Cache] R2 hit for directory ${context.locale}/${context.slug}`);
+      
+      // Promote to KV cache
+      await promoteDirectoryPageToKV(env.KV_CACHE, data);
+      
+      return {
+        source: 'r2',
+        data,
+        cacheHit: true,
+        responseTime: Date.now() - startTime,
+      };
+    }
+  } catch (error) {
+    console.warn(`[Cache] R2 access error for directory: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+  
+  // Tier 3: Fetch from HuggingFace (100ms+)
+ try {
+   console.log(`[Cache] Fetching directory page for ${context.locale}/${context.slug}`);
+   const builder = new ArtifactBuilder({
+     hfToken: env.HF_TOKEN,
+   }, env.HF_TOKEN);
+
+   const directoryPage = await builder.fetchDirectoryPage(context.locale, context.slug);
+    
+    // Store in R2
+    const r2Key = `directory/${context.locale}/${context.slug}`;
+    const compressed = builder.compressData(JSON.stringify(directoryPage)).compressed;
+    await env.R2_STORAGE.put(r2Key, compressed);
+    
+    // Promote to KV cache
+    await promoteDirectoryPageToKV(env.KV_CACHE, directoryPage);
+    
+    return {
+      source: 'hf',
+      data: directoryPage,
+      cacheHit: false,
+      responseTime: Date.now() - startTime,
+    };
+  } catch (error) {
+    console.error(`[Cache] Directory page fetch error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw error;
+  }
+}
+
+/**
+ * Promote directory page to KV cache
+ */
+async function promoteDirectoryPageToKV(kv: KVNamespace, data: DirectoryPage): Promise<void> {
+  try {
+    await kv.put(`directory-${data.slug}`, JSON.stringify(data), {
+      expirationTtl: 3600, // 1 hour TTL
+    });
+    console.log(`[Cache] Promoted directory page to KV: ${data.slug}`);
+  } catch (error) {
+    console.warn(`[Cache] Directory page KV promotion error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+/**
+ * Create HTTP response for directory page
+ */
+function createDirectoryPageResponse(cacheResponse: CacheResponse, context: RequestContext): Response {
+  const responseTime = cacheResponse.responseTime.toString();
+  const cacheStatus = cacheResponse.cacheHit ? 'HIT' : 'MISS';
+  
+  const headers: ResponseHeaders = {
+    'content-type': 'application/json',
+    'content-encoding': 'gzip',
+    'cache-control': `public, max-age=${cacheResponse.source === 'kv' ? 3600 : 86400}`,
+    'x-cache-status': cacheStatus,
+    'x-response-time': responseTime,
+    'access-control-allow-origin': '*',
+    'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'access-control-allow-headers': 'Content-Type, Authorization',
+  };
+  
+  const responseHeaders = new Headers();
+  Object.entries(headers).forEach(([key, value]) => {
+    responseHeaders.set(key, value);
+  });
+ 
+  return new Response(JSON.stringify({
+    success: true,
+    data: cacheResponse.data,
+    source: cacheResponse.source,
+    cacheHit: cacheResponse.cacheHit,
+    responseTime: cacheResponse.responseTime,
+    timestamp: new Date().toISOString(),
+  }), {
+    status: 200,
+    headers: responseHeaders,
+  });
+}
+
+/**
  * Handle main CMS API routes
  */
 async function handleCMSAPI(
@@ -166,13 +372,23 @@ async function handleCMSAPI(
 ): Promise<Response> {
   const url = new URL(request.url);
   const pathSegments = url.pathname.split('/').filter(Boolean);
-  
-  // Parse request: /api/cms/{locale}/{type}/{slug}
-  if (pathSegments.length < 4 || pathSegments[0] !== 'api' || pathSegments[1] !== 'cms') {
+ 
+  // Parse request: /api/cms/{locale}/{slug} (flat structure)
+  // or /api/cms/{locale}/{type}/{slug} (legacy structure)
+  if (pathSegments.length < 3 || pathSegments[0] !== 'api' || pathSegments[1] !== 'cms') {
     return new Response('Invalid API route format', { status: 400 });
   }
-  
+ 
   const locale = pathSegments[2] as Locale;
+
+  // Check if this is a flat structure request (directory pages)
+  if (pathSegments.length === 4) {
+    // Flat structure: /api/cms/{locale}/{slug}
+    const slug = pathSegments[3];
+    return await handleDirectoryPageRequest(request, env, ctx, startTime, locale, slug);
+  }
+  
+  // Legacy structure: /api/cms/{locale}/{type}/{slug}
   const contentType = pathSegments[3] as ContentType;
   const slug = pathSegments.slice(4).join('/');
   
@@ -298,17 +514,17 @@ async function getWithCacheStrategy(
   }
   
   // Tier 3: HuggingFace rebuild (100ms+)
-  try {
-    console.log(`[Cache] Rebuilding artifact for ${context.locale}/${context.contentType}/${context.slug}`);
-    const builder = new ArtifactBuilder({
-      hfToken: env.HF_TOKEN,
-    });
-    
-    const contentItem = await builder.buildAndStoreArtifact(
-      context.locale,
-      context.contentType,
-      context.slug
-    );
+ try {
+   console.log(`[Cache] Rebuilding artifact for ${context.locale}/${context.contentType}/${context.slug}`);
+   const builder = new ArtifactBuilder({
+     hfToken: env.HF_TOKEN,
+   }, env.HF_TOKEN);
+
+   const contentItem = await builder.buildAndStoreArtifact(
+     context.locale,
+     context.contentType,
+     context.slug
+   );
     
     // Store in R2
     const r2Key = `${context.locale}/${context.contentType}/${context.slug}`;

@@ -1,0 +1,76 @@
+{
+  "slug": "coffee-shops-seattle",
+  "title": "Coffee Shops Seattle",
+  "description": "",
+  "businesses": [
+    {
+      "id": "storyville-coffee-0",
+      "name": "Storyville Coffee",
+      "address": "94 Pike Street Top, floor Suite 34, Seattle, WA 98101",
+      "phone": null,
+      "rating": 4.6,
+      "reviews": 699,
+      "website": "https://storyville.com/",
+      "description": "Located in the heart of Pike Place Market, Storyville Coffee offers beautiful wooden decor, comfortable seating, and views of the market and Puget Sound. It's a great spot to take a break from the crowds.",
+      "hours": "7:59 AM - 4:00 PM Monday - Thursday, 7:59 AM - 5:00 PM Friday - Sunday"
+    },
+    {
+      "id": "anchorhead-coffee-1",
+      "name": "Anchorhead Coffee",
+      "address": "2003 Western Ave STE 110A, Seattle, WA 98121",
+      "phone": "+1-206-222-2295",
+      "rating": null,
+      "reviews": null,
+      "website": "https://anchorheadcoffee.com/",
+      "description": "Anchorhead has several locations in Seattle, offering a chill vibe with plenty of seating. It's a great place to study or get work done, with friendly staff and tasty coffee.",
+      "hours": "7:00 AM - 6:00 PM Daily"
+    },
+    {
+      "id": "elm-coffee-roasters-2",
+      "name": "Elm Coffee Roasters",
+      "address": "240 2nd Ave S #103, Seattle, WA 98104",
+      "phone": "+12064457808",
+      "rating": 4.6,
+      "reviews": 699,
+      "website": "https://elmcoffeeroasters.com/",
+      "description": "Elm Coffee Roasters stands out as an exquisite masterpiece in Seattle's coffee scene, focusing on light roasts and offering an artisanal experience.",
+      "hours": "8 AM - 3 PM Monday - Saturday, Closed Sunday"
+    },
+    {
+      "id": "moore-coffee-shop-3",
+      "name": "Moore Coffee Shop",
+      "address": "1930 2nd Ave, Seattle, WA 98101",
+      "phone": "+1 2068-837-044",
+      "rating": 4.6,
+      "reviews": 1043,
+      "website": null,
+      "description": "Moore Coffee Shop is a charming destination with an eclectic blend of cultural influences, featuring delightful menu items, captivating decor, and incredible latte art.",
+      "hours": "8:00 AM - 3:30 PM Wednesday, Friday, Saturday; 8:00 AM - 3:00 PM Sunday; Closed Monday, Tuesday, Thursday"
+    },
+    {
+      "id": "fremont-coffee-company-4",
+      "name": "Fremont Coffee Company",
+      "address": "459 N 36th St, Seattle, WA 98103",
+      "phone": "+1 (206) 632-3633",
+      "rating": 4.5,
+      "reviews": 1200,
+      "website": "fremontcoffee.net",
+      "description": "Fremont Coffee Company offers fair-trade organic brews in a cozy, home-like atmosphere with indoor and outdoor seating. It's known for its adorable atmosphere and good vibes.",
+      "hours": "6:00 AM - 7:00 PM Monday - Friday, 7:00 AM - 7:00 PM Saturday - Sunday"
+    },
+    {
+      "id": "ghost-alley-espresso-5",
+      "name": "Ghost Alley Espresso",
+      "address": "1499 Post Alley, Seattle, WA, US, 98101-2031",
+      "phone": "(206) 805-0195",
+      "rating": 5,
+      "reviews": 168,
+      "website": "ghostalleyespresso.com",
+      "description": "A miniature coffee shop located at Pike Place Market, known for its unique Modbar system and a charmingly haunted atmosphere.",
+      "hours": "7:30 AM - 5:30 PM Daily"
+    }
+  ],
+  "businessCount": 6,
+  "createdAt": "2025-12-30T02:39:33.498Z",
+  "updatedAt": "2025-12-30T02:39:33.498Z"
+}

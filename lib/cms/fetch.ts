@@ -7,12 +7,19 @@ import {
   type AppTypeListQueryForSitemapResult,
   type CategoryListQueryForSitemapResult,
   type ProductListQueryForSitemapResult,
+  type DirectoryListQueryForSitemapResult,
   type AppTypeQueryResult,
   type ApplicationQueryResult,
   type CategoryQueryResult,
   type GroupQueryResult,
   type IndexQueryResult,
   type ProductQueryResult,
+  type UserQueryResult,
+  type ApplicationListByUserQueryResult,
+  type AppTypeListQueryResult,
+  type GroupListWithCategoryQueryResult,
+  type ProductListOfFeaturedQueryResult,
+  type ProductListOfRecentQueryResult,
   type ContentType,
   type SupportedLocale,
   type QueryParams,
@@ -358,6 +365,23 @@ export async function fetchProductListForSitemap({
   return cmsFetch<ProductListQueryForSitemapResult[]>({
     contentType: 'product',
     slug: 'sitemap-products',
+    locale,
+    options: { ...options, useCache: true },
+  });
+}
+
+export async function fetchDirectoryListForSitemap({
+  locale = "en",
+  options = {},
+}: {
+  locale?: SupportedLocale;
+  options?: CacheOptions;
+}): Promise<DirectoryListQueryForSitemapResult[]> {
+  // This endpoint needs to be implemented in the CMS API
+  // For now, we'll use a placeholder
+  return cmsFetch<DirectoryListQueryForSitemapResult[]>({
+    contentType: 'directory',
+    slug: 'sitemap-directories',
     locale,
     options: { ...options, useCache: true },
   });

@@ -1,0 +1,57 @@
+{
+  "slug": "yoga-studios-austin-texas",
+  "faqs": [
+    {
+      "id": "faq-0",
+      "question": "What are the most affordable or donation-based yoga studios in Austin?",
+      "answer": "Austin is famous for its accessible yoga scene. Black Swan Yoga and Practice Yoga Austin are top choices that offer donation-based classes (suggested $15–$20). Additionally, studios like Your Yoga offer drop-ins for as low as $10, and many others, such as Flow Yoga and Yoga Pod, provide low-cost introductory specials like 30 days for $30 or $40.",
+      "category": "Pricing & Affordability",
+      "relevanceScore": 1
+    },
+    {
+      "id": "faq-1",
+      "question": "Where can I find free outdoor yoga classes in Austin?",
+      "answer": "You can find free community classes at Waterloo Greenway (hosted by Castle Hill Fitness), Fareground (hosted by Swift Fit Events on Sundays), and Republic Square Park (often hosted by YTX Yoga). Zilker Park and Auditorium Shores are also popular spots where instructors frequently hold free or low-cost meetups.",
+      "category": "Outdoor Yoga",
+      "relevanceScore": 0.95
+    },
+    {
+      "id": "faq-2",
+      "question": "Which yoga studios in Austin are best for beginners?",
+      "answer": "Most Austin studios are beginner-friendly, but Black Swan Yoga, Yoga Pod, and Flow Yoga are highly recommended for their approachable atmospheres. Specific beginner classes include CorePower Yoga 1, 'Align' at Practice Yoga, and 'Hatha' or 'Slow Flow' sessions at various studios across the city.",
+      "category": "Beginner Guide",
+      "relevanceScore": 0.9
+    },
+    {
+      "id": "faq-3",
+      "question": "Which Austin studios offer hot or heated yoga?",
+      "answer": "Hot yoga is very popular in Austin. Leading options include Black Swan Yoga (heated to 90°), Y7 Studio (infrared heat with music), CorePower Yoga, and Karma Yoga. Studios like hŌM Yoga and Yoga Pod also offer a variety of infrared-heated vinyasa and power flow classes.",
+      "category": "Class Types",
+      "relevanceScore": 0.85
+    },
+    {
+      "id": "faq-4",
+      "question": "Do I need to bring my own yoga mat and equipment?",
+      "answer": "While it's recommended to bring your own mat, towel, and water bottle, most Austin studios (like Oak + Lotus, Yoga Pod, and Practice Yoga) offer mat rentals for $1–$5. Many studios also provide blocks, straps, and blankets for free to help you customize your practice.",
+      "category": "Preparation",
+      "relevanceScore": 0.8
+    },
+    {
+      "id": "faq-5",
+      "question": "Are there studios in Austin that combine yoga with other fitness styles?",
+      "answer": "Yes, TruFusion is a popular multi-disciplinary studio offering yoga alongside HIIT, boxing, and kettlebell classes. YTX Yoga also offers 'Yoga + HIIT' or 'Yoga + Strength' fusions, and Castle Hill Fitness provides a comprehensive gym experience including yoga, pilates, and personal training.",
+      "category": "Studio Features",
+      "relevanceScore": 0.75
+    },
+    {
+      "id": "faq-6",
+      "question": "Where can I experience yoga with live music or unique soundscapes in Austin?",
+      "answer": "Austin's 'Live Music Capital' status extends to yoga. YTX Yoga frequently hosts classes with live DJs or lofi beats, and the 'Yoga + Sound' series at Waterloo Greenway features immersive sound therapy. Y7 Studio is also known for its music-driven flows set to hip-hop and artist-themed playlists.",
+      "category": "Special Events",
+      "relevanceScore": 0.7
+    }
+  ],
+  "faqCount": 7,
+  "createdAt": "2025-12-30T02:39:33.521Z",
+  "updatedAt": "2025-12-30T02:39:33.521Z"
+}

@@ -5,13 +5,15 @@ import {
   fetchAppListForSitemap,
   fetchAppTypeListForSitemap,
   fetchCategoryListForSitemap,
-  fetchProductListForSitemap
+  fetchProductListForSitemap,
+  fetchDirectoryListForSitemap
 } from "@/lib/cms/fetch";
 import type {
   AppListQueryForSitemapResult,
   AppTypeListQueryForSitemapResult,
   CategoryListQueryForSitemapResult,
-  ProductListQueryForSitemapResult
+  ProductListQueryForSitemapResult,
+  DirectoryListQueryForSitemapResult
 } from "@/lib/cms/types";
 
 const site_url = env.NEXT_PUBLIC_APP_URL;
@@ -76,17 +78,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
 
     const [appListQueryResult, appTypeListQueryResult,
-        categoryListQueryResult, productListQueryResult] = await Promise.all([
+        categoryListQueryResult, productListQueryResult,
+        directoryListQueryResult] = await Promise.all([
             fetchAppListForSitemap({ locale: 'en' }),
             fetchAppTypeListForSitemap({ locale: 'en' }),
             fetchCategoryListForSitemap({ locale: 'en' }),
             fetchProductListForSitemap({ locale: 'en' }),
+            fetchDirectoryListForSitemap({ locale: 'en' }),
         ]);
 
     console.log('sitemap, appListQueryResult size:', appListQueryResult.length);
     console.log('sitemap, appTypeListQueryResult size:', appTypeListQueryResult.length);
     console.log('sitemap, categoryListQueryResult size:', categoryListQueryResult.length);
     console.log('sitemap, productListQueryResult size:', productListQueryResult.length);
+    console.log('sitemap, directoryListQueryResult size:', directoryListQueryResult.length);
 
     appListQueryResult.forEach((app) => {
         i18n.locales.forEach((locale) => {
@@ -144,6 +149,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                 lastModified: new Date(),
                 changeFrequency: 'daily',
                 priority: 1,
+            });
+        })
+    })
+
+    directoryListQueryResult.forEach((directory) => {
+        i18n.locales.forEach((locale) => {
+            const lang = `/${locale}`;
+            const routeUrl = `/directory/${directory.slug}`;
+            console.log(`sitemap, url:${site_url}${lang}${routeUrl}`);
+            sitemapList.push({
+                url: `${site_url}${lang}${routeUrl}`,
+                lastModified: new Date(),
+                changeFrequency: 'daily',
+                priority: 0.9,
             });
         })
     })

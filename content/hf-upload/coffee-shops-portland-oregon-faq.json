@@ -1,0 +1,57 @@
+{
+  "slug": "coffee-shops-portland-oregon",
+  "faqs": [
+    {
+      "id": "faq-0",
+      "question": "What are the most iconic coffee shops to visit in Portland?",
+      "answer": "Stumptown Coffee Roasters is arguably the most famous, having pioneered the third-wave movement here. Other 'Big Three' essentials include Coava Coffee Roasters, known for their single-origin focus and warehouse-chic aesthetic, and Heart Coffee Roasters, famous for their light-roast profiles.",
+      "category": "Tourism & Icons",
+      "relevanceScore": 1
+    },
+    {
+      "id": "faq-1",
+      "question": "Which coffee shops in Portland are best for remote work?",
+      "answer": "Coava Coffee (SE Grand location) offers a spacious, industrial vibe with plenty of seating. Futura Coffee Roasters and Upper Left Roasters are also popular with digital nomads for their bright, airy atmospheres and reliable Wi-Fi, while Albina Press provides a cozy, community-focused 'third place' feel.",
+      "category": "Work & Study",
+      "relevanceScore": 0.95
+    },
+    {
+      "id": "faq-2",
+      "question": "What makes Portland’s coffee culture unique?",
+      "answer": "Portland stands out for its extreme density of independent micro-roasters and a deep commitment to the 'third-wave' movement, which treats coffee like fine wine. The culture emphasizes direct-trade relationships with farmers, ethical sourcing, and meticulously crafted pour-overs over mass-market convenience.",
+      "category": "Culture",
+      "relevanceScore": 0.9
+    },
+    {
+      "id": "faq-3",
+      "question": "Are there any must-try signature coffee drinks in Portland?",
+      "answer": "Yes! Look for the 'Rose Gold Latte' at Stumptown, the 'Coconut Cold Brew with Ube Whip' at Kalesa Coffee, and the inventive 'Hojicha Latte' or 'Black Sesame Latte' at Less and More Coffee. Never Coffee is also famous for eclectic signature lattes with unique flavor profiles like 'The Midnight Oil'.",
+      "category": "Specialty Drinks",
+      "relevanceScore": 0.88
+    },
+    {
+      "id": "faq-4",
+      "question": "Where can I find international or culturally unique coffee in Portland?",
+      "answer": "For international flavors, visit Portland Cà Phê for Vietnamese coffee, Tōv for Egyptian-style coffee in a double-decker bus, Behind the Museum Cafe for Japanese matcha and treats, or Kalesa Coffee for Filipino-inspired brews.",
+      "category": "Specialty & Culture",
+      "relevanceScore": 0.85
+    },
+    {
+      "id": "faq-5",
+      "question": "Can I get high-quality local coffee at the Portland International Airport (PDX)?",
+      "answer": "Absolutely. Portland stays true to its coffee reputation even at the airport; you can find Stumptown Coffee Roasters and Good Coffee locations within the terminals, ensuring a premium local cup before or after your flight.",
+      "category": "Travel",
+      "relevanceScore": 0.82
+    },
+    {
+      "id": "faq-6",
+      "question": "Which Portland shops roast their own beans?",
+      "answer": "Many of Portland's best shops are vertically integrated. Prominent local roasters include Coava, Heart, Water Avenue Coffee, Case Study Coffee, and Sterling Coffee Roasters. Most of these locations sell freshly roasted bags to-go, often with a free cup of drip coffee included with your purchase.",
+      "category": "Roasters",
+      "relevanceScore": 0.92
+    }
+  ],
+  "faqCount": 7,
+  "createdAt": "2025-12-30T02:39:33.509Z",
+  "updatedAt": "2025-12-30T02:39:33.509Z"
+}

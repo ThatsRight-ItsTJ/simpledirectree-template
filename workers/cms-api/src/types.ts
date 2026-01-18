@@ -11,7 +11,7 @@ export interface Env {
 }
 
 // Content types supported by the CMS
-export type ContentType = 'page' | 'post' | 'product' | 'guide' | 'documentation';
+export type ContentType = 'page' | 'post' | 'product' | 'guide' | 'documentation' | 'directory' | 'faq';
 
 // Supported locales
 export type Locale = 'en' | 'zh';
@@ -38,6 +38,44 @@ export interface HuggingFaceResponse {
   };
 }
 
+// Business interface for directory pages
+export interface Business {
+  id: string;
+  name: string;
+  description?: string;
+  address?: string;
+  phone?: string;
+  website?: string;
+  rating?: number;
+  reviewCount?: number;
+  categories?: string[];
+  hours?: string;
+  latitude?: number;
+  longitude?: number;
+  images?: string[];
+}
+
+// FAQ interface for directory pages
+export interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  order?: number;
+}
+
+// Directory page structure
+export interface DirectoryPage {
+  slug: string;
+  title: string;
+  description?: string;
+  businesses: Business[];
+  faqs: FAQ[];
+  businessCount: number;
+  faqCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Denormalized content structure
 export interface ContentItem {
   id: string;
@@ -58,9 +96,9 @@ export interface ContentItem {
 }
 
 // Cache layers response structure
-export interface CacheResponse {
+export interface CacheResponse<T = ContentItem | DirectoryPage> {
   source: 'kv' | 'r2' | 'hf';
-  data?: ContentItem;
+  data?: T;
   compressed?: boolean;
   cacheHit: boolean;
   responseTime: number;
@@ -116,6 +154,7 @@ export interface HeatTrackingOptions {
 export interface BuilderConfig {
   hfModel: string;
   hfEndpoint: string;
+  hfDataset: string; // HuggingFace dataset repo name
   compressionLevel: number;
   cacheTTL: {
     kv: number; // seconds
@@ -171,7 +210,7 @@ export interface AnalyticsEvent {
 // Configuration constants
 export const CONFIG = {
   SUPPORTED_LOCALES: ['en', 'zh'] as Locale[],
-  SUPPORTED_CONTENT_TYPES: ['page', 'post', 'product', 'guide', 'documentation'] as ContentType[],
+  SUPPORTED_CONTENT_TYPES: ['page', 'post', 'product', 'guide', 'documentation', 'directory', 'faq'] as ContentType[],
   CACHE_TTL: {
     KV: 3600, // 1 hour
     R2: 86400, // 24 hours

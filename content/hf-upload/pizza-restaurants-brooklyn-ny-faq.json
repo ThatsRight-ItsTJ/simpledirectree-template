@@ -1,0 +1,57 @@
+{
+  "slug": "pizza-restaurants-brooklyn-ny",
+  "faqs": [
+    {
+      "id": "faq-0",
+      "question": "What is the difference between 'Brooklyn-style' and 'New York-style' pizza?",
+      "answer": "While often used interchangeably, authentic Brooklyn pizza typically features a thinner, crispier, and airier crust than a standard New York slice. It is also traditionally cut into 6 large slices rather than 8, making them easier to fold and eat on the go. Note that the 'Brooklyn-style' menu item at national chains is a commercial imitation involving cornmeal, which local Brooklyn pizzerias rarely use.",
+      "category": "Styles",
+      "relevanceScore": 1
+    },
+    {
+      "id": "faq-1",
+      "question": "Which Brooklyn pizza restaurants are considered must-visit 'classics'?",
+      "answer": "For an iconic experience, visit Di Fara in Midwood for its legendary family-run legacy, Lucali in Carroll Gardens for thin-crust artisan pies, L&B Spumoni Gardens for their famous 'sauce-on-top' square slices, and the rival duo of Grimaldi's and Juliana's in DUMBO for coal-fired whole pies.",
+      "category": "Recommendations",
+      "relevanceScore": 0.98
+    },
+    {
+      "id": "faq-2",
+      "question": "How do I get a table at Lucali, and do they take reservations?",
+      "answer": "Lucali does not take advanced reservations. To secure a table, you must arrive in person to join the waitlist. The list usually starts at 4:00 PM (though lines often form by 3:00 PM), and the restaurant opens at 5:00 PM. It is a cash-only, BYOB establishment.",
+      "category": "Policies & Tips",
+      "relevanceScore": 0.95
+    },
+    {
+      "id": "faq-3",
+      "question": "Are there good options for vegan or gluten-free pizza in Brooklyn?",
+      "answer": "Yes, Brooklyn has a vibrant specialty pizza scene. Screamer's Pizzeria (Greenpoint and Crown Heights) is entirely vegan, while Paulie Gee’s Slice Shop offers popular vegan and gluten-free options. For gluten-free deep dish, Emmy Squared in Williamsburg is a top-rated choice.",
+      "category": "Dietary Options",
+      "relevanceScore": 0.92
+    },
+    {
+      "id": "faq-4",
+      "question": "What is the 'Grimaldi's vs. Juliana's' rivalry in DUMBO?",
+      "answer": "These two famous coal-fired pizzerias are located nearly next door to each other. Juliana's was opened by the original founder of Grimaldi's (Patsy Grimaldi) after he sold his first brand and later returned to the original space. While both are excellent, locals often prefer Juliana's for its crust and shorter lines, while tourists often flock to the Grimaldi's brand name.",
+      "category": "Recommendations",
+      "relevanceScore": 0.94
+    },
+    {
+      "id": "faq-5",
+      "question": "Can I buy a single slice at all Brooklyn pizzerias?",
+      "answer": "No. Many famous Brooklyn institutions, such as Lucali, Grimaldi's, and Juliana's, only serve whole pies. If you are looking for a quick 'slice shop' experience, head to L'Industrie in Williamsburg, Paulie Gee's Slice Shop in Greenpoint, or Di Fara (which serves both slices and pies).",
+      "category": "General",
+      "relevanceScore": 0.96
+    },
+    {
+      "id": "faq-6",
+      "question": "Is it true that Brooklyn water makes the pizza better?",
+      "answer": "Many locals and bakers swear by New York City's 'soft' water, which has a specific mineral content (low calcium and magnesium) that helps the gluten in the dough develop a unique chewy-yet-crispy texture that is difficult to replicate elsewhere.",
+      "category": "Styles",
+      "relevanceScore": 0.88
+    }
+  ],
+  "faqCount": 7,
+  "createdAt": "2025-12-30T02:39:33.519Z",
+  "updatedAt": "2025-12-30T02:39:33.520Z"
+}

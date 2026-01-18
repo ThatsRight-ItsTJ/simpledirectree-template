@@ -1,7 +1,7 @@
 import { Locale } from "@/i18n-config";
 
 // Content types supported by the Cloudflare CMS
-export type ContentType = 'product' | 'category' | 'apptype' | 'application' | 'groups' | 'index' | 'user' | 'applications-by-user' | 'apptype-list';
+export type ContentType = 'product' | 'category' | 'apptype' | 'application' | 'groups' | 'index' | 'user' | 'applications-by-user' | 'apptype-list' | 'directory';
 
 // Supported locales
 export type SupportedLocale = 'en' | 'zh';
@@ -120,6 +120,33 @@ export interface GroupData extends BaseContentItem {
   products?: ProductData[];
 }
 
+// Directory page data type
+export interface DirectoryPage extends BaseContentItem {
+  _id?: string;
+  _type?: string;
+  _createdAt?: string;
+  _updatedAt?: string;
+  title: string;
+  description?: string;
+  slug: string;
+  businesses?: {
+    id: string;
+    name: string;
+    description?: string;
+    address?: string;
+    rating?: number;
+    website?: string;
+    phone?: string;
+    hours?: string;
+  }[];
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+  businessCount?: number;
+  faqCount?: number;
+}
+
 // Index/homepage data type
 export interface IndexData extends BaseContentItem {
   _id?: string;
@@ -142,6 +169,7 @@ export type ApplicationQueryResult = ApplicationData;
 export type GroupQueryResult = GroupData;
 export type IndexQueryResult = IndexData;
 export type UserQueryResult = UserData;
+export type DirectoryQueryResult = DirectoryPage;
 export type ApplicationListByUserQueryResult = ApplicationData[];
 export type AppTypeListQueryResult = AppTypeData[];
 export type GroupListWithCategoryQueryResult = GroupData[];
@@ -171,6 +199,12 @@ export interface CategoryListQueryForSitemapResult {
 export interface ProductListQueryForSitemapResult {
   id: string;
   slug: string;
+}
+
+export interface DirectoryListQueryForSitemapResult {
+  id: string;
+  slug: string;
+  title: string;
 }
 
 // Query parameters interface

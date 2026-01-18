@@ -1,0 +1,76 @@
+{
+  "slug": "yoga-studios-austin-texas",
+  "title": "Yoga Studios Austin Texas",
+  "description": "",
+  "businesses": [
+    {
+      "id": "black-swan-yoga-0",
+      "name": "Black Swan Yoga",
+      "address": "1417 W Anderson Ln, Austin, TX 78757",
+      "phone": "(512) 960-4026",
+      "rating": null,
+      "reviews": null,
+      "website": "https://blackswanyoga.com/",
+      "description": "Black Swan Yoga is a donation-based, 90-degree heated yoga studio that is approachable, affordable, and community-driven. They honor all yogic styles, practices, and philosophies, believing yoga should be available to everyone.",
+      "hours": null
+    },
+    {
+      "id": "yoga-yoga-north-1",
+      "name": "Yoga Yoga North",
+      "address": "2525 W Anderson Ln #320, Austin, TX 78757",
+      "phone": "(512) 330-5400",
+      "rating": null,
+      "reviews": null,
+      "website": "https://yogayoga.com/",
+      "description": "Yoga Yoga offers a variety of yoga classes and styles, catering to all levels from beginners to experienced practitioners. They are committed to providing a welcoming and supportive environment for their community.",
+      "hours": null
+    },
+    {
+      "id": "practice-yoga-austin-2",
+      "name": "Practice Yoga Austin",
+      "address": "1103 E 6th St, Austin, TX 78702",
+      "phone": "(512) 730-1638",
+      "rating": null,
+      "reviews": null,
+      "website": "https://www.practiceyogaaustin.com/",
+      "description": "Practice Yoga Austin is a donation-based yoga studio focused on high-quality yoga accessible to all. They offer a variety of classes including Align, Vinyasa, Mindful Yoga, Yin, meditation, and breathwork in a welcoming atmosphere.",
+      "hours": "Monday-Thursday: 7:00 am - 11:00 pm, Friday: 7:00 am - 7:30 pm, Saturday: 9:00 am - 7:30 pm, Sunday: 9:00 am - 10:00 pm"
+    },
+    {
+      "id": "austin-yoga-tree-3",
+      "name": "Austin Yoga Tree",
+      "address": "10401 Anderson Mill Rd #105B, Austin, TX 78750",
+      "phone": "(512) 520-5305",
+      "rating": null,
+      "reviews": null,
+      "website": "https://www.austinyogatree.com/",
+      "description": "Austin Yoga Tree is a yoga studio offering various classes like Vinyasa Flow, Vinyasa Flow + Weights, Pranayama, and Meditation. They emphasize community and a lifelong learning journey in yoga.",
+      "hours": null
+    },
+    {
+      "id": "corepower-yoga---monarch-4",
+      "name": "CorePower Yoga - Monarch",
+      "address": "801 W 5th St, Austin, TX 78703",
+      "phone": "(512) 542-9642",
+      "rating": "4.9",
+      "reviews": "30,000+",
+      "website": "https://www.corepoweryoga.com/",
+      "description": "CorePower Yoga offers a physically challenging workout rooted in the mindfulness of yoga, with classes like Yoga, Hot Yoga, and Strength Training. They aim to share the transformative power of yoga with everyone.",
+      "hours": "Monday-Thursday: 5:00 a.m. - 9:00 p.m."
+    },
+    {
+      "id": "yoga-pod-austin-5",
+      "name": "Yoga Pod Austin",
+      "address": "12025 Research Blvd, Austin, TX 78759",
+      "phone": "(512) 997-0570",
+      "rating": null,
+      "reviews": null,
+      "website": "https://www.yogapod.com/austin",
+      "description": "Yoga Pod Austin offers a variety of classes including Hot Yoga, Vinyasa, Barre, and fitness classes in a welcoming and inclusive environment. They provide a robust class schedule for all levels.",
+      "hours": null
+    }
+  ],
+  "businessCount": 6,
+  "createdAt": "2025-12-30T02:39:33.508Z",
+  "updatedAt": "2025-12-30T02:39:33.508Z"
+}

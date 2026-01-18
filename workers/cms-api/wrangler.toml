@@ -24,3 +24,9 @@ preview_bucket_name = "cms-artifacts-preview"
 binding = "DB"
 database_name = "directory-heat-tracker"
 database_id = "08d2274a-7ef4-4b21-949d-3d57dff93c6f"
+
+# HuggingFace dataset configuration
+[huggingface]
+dataset_repo = "Offren/directory-pages"
+dataset_path = "directory-pages-en.jsonl"
+access_token = "$HF_TOKEN"

@@ -1,0 +1,57 @@
+{
+  "slug": "italian-restaurants-brooklyn",
+  "faqs": [
+    {
+      "id": "faq-0",
+      "question": "Which Brooklyn neighborhoods are best known for authentic Italian food?",
+      "answer": "Carroll Gardens is famous for its classic 'Old School' charm and red-sauce joints, while Williamsburg hosts trendy, modern hotspots like Lilia. For traditional Italian-American experiences, Bay Ridge and Bensonhurst offer long-standing family-owned favorites.",
+      "category": "Neighborhoods",
+      "relevanceScore": 1
+    },
+    {
+      "id": "faq-1",
+      "question": "What is the oldest Italian restaurant in Brooklyn?",
+      "answer": "Bamonte’s in Williamsburg, established in 1900, is the oldest Italian restaurant in Brooklyn. It is celebrated for its vintage atmosphere and traditional dishes like eggplant rollatini and house-made ravioli.",
+      "category": "History",
+      "relevanceScore": 0.95
+    },
+    {
+      "id": "faq-2",
+      "question": "How difficult is it to get a reservation at popular spots like Lilia or Misi?",
+      "answer": "Reservations at high-demand restaurants like Lilia and Misi typically open 28 to 30 days in advance and often book up within minutes. It is highly recommended to use apps like Resy right when slots drop or try for 'walk-in' bar seating early in the evening.",
+      "category": "Reservations",
+      "relevanceScore": 0.9
+    },
+    {
+      "id": "faq-3",
+      "question": "What is a 'red sauce joint' and where can I find one in Brooklyn?",
+      "answer": "A 'red sauce joint' refers to traditional Italian-American restaurants specializing in hearty classics like Chicken Parmigiana and Pasta al la Vodka. Iconic examples include Michael’s of Brooklyn in Sheepshead Bay and Frost in Williamsburg.",
+      "category": "Cuisine Types",
+      "relevanceScore": 0.85
+    },
+    {
+      "id": "faq-4",
+      "question": "Are there Italian restaurants in Brooklyn that offer gluten-free or vegetarian options?",
+      "answer": "Yes, many modern spots like Il Passatore Trattoria offer extensive vegetarian menus, and several artisanal pasta shops now provide gluten-free pasta alternatives. It is always best to check specific menus, as high-end trattorias frequently accommodate dietary needs.",
+      "category": "Dietary Options",
+      "relevanceScore": 0.8
+    },
+    {
+      "id": "faq-5",
+      "question": "Where can I find the best Sicilian-style pizza in Brooklyn?",
+      "answer": "L&B Spumoni Gardens in Bensonhurst is legendary for its Sicilian square slices, known for their thick, airy crust and sauce-on-top style. For a more historic street-food experience, Ferdinando’s Focacceria in Carroll Gardens offers authentic Sicilian panelle.",
+      "category": "Pizza",
+      "relevanceScore": 0.9
+    },
+    {
+      "id": "faq-6",
+      "question": "Which Italian restaurants in Brooklyn are best for a romantic date night?",
+      "answer": "For a romantic atmosphere, Al di la Trattoria in Park Slope offers a cozy, rustic vibe, while Convivium Osteria provides a candlelit, Mediterranean-inspired setting. Fausto in Prospect Heights is also popular for its elegant, upscale ambiance.",
+      "category": "Dining Experience",
+      "relevanceScore": 0.85
+    }
+  ],
+  "faqCount": 7,
+  "createdAt": "2025-12-30T02:39:33.517Z",
+  "updatedAt": "2025-12-30T02:39:33.517Z"
+}
